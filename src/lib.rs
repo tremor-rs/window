@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#![forbid(warnings)]
+#![deny(warnings)]
 #![recursion_limit = "1024"]
 #![deny(
     clippy::all,

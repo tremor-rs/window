@@ -13,11 +13,13 @@ jobs:
           components: llvm-tools-preview
           toolchain: stable
       - uses: Swatinem/rust-cache@v1
+        with:
+          key: "no-cpu-target-native"
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@cargo-llvm-cov
       - name: Generate code coverage
         env:
-          RUSTFLAGS: -D warnings -C target-cpu=native
+          RUSTFLAGS: -D warnings
           RUST_BACKTRACE: 1
         run: cargo llvm-cov --workspace --lcov --output-path lcov.txt
       - uses: codecov/codecov-action@v3

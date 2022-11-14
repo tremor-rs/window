@@ -231,7 +231,7 @@ mod tests {
     #[test]
     fn too_much() {
         let mut sw = SlidingWindow::new(10, 10u32);
-        assert!(sw.add(20).is_err())
+        assert!(sw.add(20).is_err());
     }
 
     #[test]
@@ -347,7 +347,7 @@ mod properties {
                     next: n,
                     step: WindowAction::Tick
                 }),
-                prop::collection::vec(inner.clone(), 1).prop_map(|n| Window::Step {
+                prop::collection::vec(inner, 1).prop_map(|n| Window::Step {
                     next: n,
                     step: WindowAction::Inc
                 })
@@ -357,16 +357,16 @@ mod properties {
     }
     proptest! {
         #[test]
-        fn always(size in 10..200,
-                  _max in 10..1000,
+        fn always(size in 10_usize..200,
+                  _max in 10_u32..1000,
                   ref s in a_window()) {
             let mut s = s.clone();
-            let max = 1000;
-            let mut w = s.execute(size as usize, max as u32);
+            let max = 1000_u32;
+            let mut w = s.execute(size, max);
             if w.count() == max {
-                prop_assert!(w.inc().is_err())
+                prop_assert!(w.inc().is_err());
             } else {
-                prop_assert!(w.inc().is_ok())
+                prop_assert!(w.inc().is_ok());
             }
         }
     }
